@@ -4,11 +4,14 @@ extends Node
 var score
 
 func game_over():
+	$Music.stop()
+	$DeathSound.play()
 	$ScoreTimer.stop()
 	$MobTimer.stop()
 	$HUD.show_game_over()
 
 func new_game():
+	$Music.play()
 	score = 0
 	get_tree().call_group("mobs", "queue_free")
 	$Player.start($StartPosition.position)
@@ -18,15 +21,12 @@ func new_game():
 func _ready():
 	pass
 
-
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	pass
 
-
 func _on_player_hit():
 	game_over()
-
 
 func _on_mob_timer_timeout():
 	# Create a new instance of the Mob scene.
